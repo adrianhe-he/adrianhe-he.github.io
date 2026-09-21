@@ -1,5 +1,8 @@
 <footer class="site-footer">
   <div class="container">
-    <p>&copy; {{ 'now' | date: '%Y' }} {{ site.author.name }} &middot; updated {{ site.time | date: '%b %Y' }}</p>
+    <div class="footer-inner">
+      <p>&copy; {{ 'now' | date: '%Y' }} {{ site.author.name }}</p>
+      <p>Last updated {{ site.time | date: '%B %Y' }}</p>
+    </div>
   </div>
 </footer>

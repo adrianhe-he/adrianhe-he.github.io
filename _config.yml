@@ -4,7 +4,7 @@
 
 title:        "Yuyang He"
 description:  "Academic homepage of Yuyang He."
-url:          ""
+url:          "https://adrianhe-he.github.io"
 baseurl:      ""
 
 # Profile
@@ -18,7 +18,7 @@ author:
 links:
   email:   "yuyanghe738@gmail.com"
   scholar: ""
-  github:  "https://github.com/yuyanghe738-hub"
+  github:  "https://github.com/adrianhe-he"
   website: ""
   arxiv:   ""
   cv:      ""

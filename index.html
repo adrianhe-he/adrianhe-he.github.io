@@ -8,44 +8,32 @@ layout: default
        HERO — name, role, link row
        ========================================================= -->
   <header class="hero">
-    <h1>{{ site.author.name }}</h1>
+    <div class="hero-heading">
+      <h1>{{ site.author.name }}</h1>
+      {% assign mascot = site.cursor_pet | strip %}
+      {% if mascot != "" %}
+        <img class="hero-mascot" src="{{ mascot | relative_url }}" width="46" height="56" alt="" aria-hidden="true" />
+      {% endif %}
+    </div>
     <p class="role-lines">
       <span class="role-line">{{ site.author.role }}</span>
       <span class="role-line">{{ site.author.affiliation }}</span>
     </p>
-    <p class="link-row">
-      {% assign first = true %}
-      {% if site.links.email %}
-        {% unless first %}<span class="sep">|</span>{% endunless %}
-        <a href="mailto:{{ site.links.email }}">Email</a>
-        {% assign first = false %}
-      {% endif %}
-      {% if site.links.scholar %}
-        {% unless first %}<span class="sep">|</span>{% endunless %}
-        <a href="{{ site.links.scholar }}" target="_blank" rel="noopener">Google&nbsp;Scholar</a>
-        {% assign first = false %}
-      {% endif %}
-      {% if site.links.github %}
-        {% unless first %}<span class="sep">|</span>{% endunless %}
-        <a href="{{ site.links.github }}" target="_blank" rel="noopener">GitHub</a>
-        {% assign first = false %}
-      {% endif %}
-      {% if site.links.website %}
-        {% unless first %}<span class="sep">|</span>{% endunless %}
-        <a href="{{ site.links.website }}" target="_blank" rel="noopener">Website</a>
-        {% assign first = false %}
-      {% endif %}
-      {% if site.links.arxiv %}
-        {% unless first %}<span class="sep">|</span>{% endunless %}
-        <a href="{{ site.links.arxiv }}" target="_blank" rel="noopener">arXiv</a>
-        {% assign first = false %}
-      {% endif %}
-      {% if site.links.cv %}
-        {% unless first %}<span class="sep">|</span>{% endunless %}
-        <a href="{{ site.links.cv }}" target="_blank" rel="noopener">CV&nbsp;(PDF)</a>
-        {% assign first = false %}
-      {% endif %}
-    </p>
+    <div class="link-row" aria-label="Contact and academic profiles">
+      {% for link in site.links %}
+        {% assign link_value = link[1] | strip %}
+        {% if link_value != "" %}
+          {% case link[0] %}
+            {% when 'email' %}<a href="mailto:{{ link_value }}">{{ link_value }}</a>
+            {% when 'scholar' %}<a href="{{ link_value }}" target="_blank" rel="noopener">Google Scholar</a>
+            {% when 'github' %}<a href="{{ link_value }}" target="_blank" rel="noopener">GitHub</a>
+            {% when 'website' %}<a href="{{ link_value }}" target="_blank" rel="noopener">Website</a>
+            {% when 'arxiv' %}<a href="{{ link_value }}" target="_blank" rel="noopener">arXiv</a>
+            {% when 'cv' %}<a href="{{ link_value | relative_url }}" target="_blank" rel="noopener">CV (PDF)</a>
+          {% endcase %}
+        {% endif %}
+      {% endfor %}
+    </div>
   </header>
 
   <!-- =========================================================
@@ -54,8 +42,8 @@ layout: default
   <section id="about">
     <h2>About</h2>
     <p>
-      Hi! I am <strong>Yuyang He</strong>, an undergraduate student at the
-      <em>Materials Science and Engineering</em>,
+      Hi! I am <strong>Yuyang He</strong>, an undergraduate student in
+      <em>Materials Science and Engineering</em> at
       <em>Huazhong University of Science and Technology (HUST)</em>.
       I have a deep passion for <strong>physics</strong> and aspire to pursue
       a <strong>Ph.D.</strong> in the field. My research interests lie in
@@ -78,10 +66,11 @@ layout: default
        ========================================================= -->
   <section id="research">
     <h2>Research Interests</h2>
-    <ul class="exp-list">
+    <ul class="interest-list">
       {% for item in site.data.interests %}
         <li>
-          <strong>{{ item.title }}</strong>{% assign d = item.desc | strip %}{% if d != "" %} &mdash; {{ d }}{% endif %}
+          <h3>{{ item.title }}</h3>
+          {% assign d = item.desc | strip %}{% if d != "" %}<p>{{ d }}</p>{% endif %}
         </li>
       {% endfor %}
     </ul>
@@ -92,7 +81,7 @@ layout: default
        ========================================================= -->
   <section id="news">
     <h2>News</h2>
-    <p style="color: var(--muted); font-style: italic; margin-top: 0.4em;">
+    <p class="empty-note">
       Nothing to share yet &mdash; stay tuned.
     </p>
   </section>
@@ -104,7 +93,7 @@ layout: default
     <h2>Publications</h2>
     {% assign pubs = site.data.publications | sort: 'year' | reverse %}
     {% if pubs.size > 0 %}
-      <p style="color:var(--muted); font-size:0.88rem; margin-top:-0.35em;">
+      <p class="pub-note">
         <sup>*</sup> equal contribution &middot; <strong>bold</strong> indicates the author.
       </p>
       {% assign years = pubs | map: 'year' | uniq %}
@@ -117,7 +106,7 @@ layout: default
         </div>
       {% endfor %}
     {% else %}
-      <p style="color: var(--muted); font-style: italic; margin-top: 0.4em;">
+      <p class="empty-note">
         Forthcoming &mdash; stay tuned.
       </p>
     {% endif %}
@@ -129,21 +118,17 @@ layout: default
   <section id="experience">
     <h2>Experience</h2>
 
-    <p class="subsection-label">Education</p>
-    <ul class="exp-list">
+    <h3 class="subsection-label">Education</h3>
+    <ul class="experience-list">
       {% for item in site.data.experience.education %}
-        <li>
-          <strong>{{ item.title }}</strong>, {{ item.org }}{% assign d = item.desc | strip %}{% if d != "" %}. {{ d }}{% endif %},&nbsp;<span class="exp-date">{{ item.period }}</span>
-        </li>
+        {% include experience.html item=item %}
       {% endfor %}
     </ul>
 
-    <p class="subsection-label">Research</p>
-    <ul class="exp-list">
+    <h3 class="subsection-label">Research</h3>
+    <ul class="experience-list">
       {% for item in site.data.experience.research %}
-        <li>
-          <strong>{{ item.title }}</strong>, {{ item.org }}{% assign d = item.desc | strip %}{% if d != "" %}. {{ d }}{% endif %}&nbsp;<span class="exp-date">{{ item.period }}</span>
-        </li>
+        {% include experience.html item=item %}
       {% endfor %}
     </ul>
   </section>
@@ -153,9 +138,9 @@ layout: default
        ========================================================= -->
   <section id="skills">
     <h2>Technical Skills</h2>
-    <ul class="exp-list">
+    <ul class="skill-list">
       {% for s in site.data.skills %}
-        <li><strong>{{ s.category }}</strong> &mdash; {{ s.items }}</li>
+        <li><strong>{{ s.category }}</strong><span>{{ s.items }}</span></li>
       {% endfor %}
     </ul>
   </section>
@@ -165,7 +150,7 @@ layout: default
        ========================================================= -->
   <section id="honors">
     <h2>Honors &amp; Awards</h2>
-    {% assign honors = site.data.honors | sort: 'year' | reverse %}
+    {% assign honors = site.data.honors | sort: 'date' | reverse %}
     <ul class="timeline">
       {% for h in honors %}
         <li>
@@ -191,7 +176,7 @@ layout: default
     <ul class="hobby-list">
       {% for h in site.data.hobbies %}
         <li>
-          <span class="h-title">{{ h.title }}</span><span class="h-sep">·</span><span class="h-desc">{{ h.desc }}</span>
+          <span class="h-title">{{ h.title }}</span><span class="h-desc">{{ h.desc }}</span>
         </li>
       {% endfor %}
     </ul>

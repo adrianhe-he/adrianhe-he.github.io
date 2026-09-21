@@ -9,14 +9,15 @@
     <br/>
     <em>{{ include.pub.venue }}</em>, {{ include.pub.year }}{% if include.pub.badge %} <span class="pub-tag">{{ include.pub.badge }}</span>{% endif %}
   </p>
-  {% if include.pub.pdf or include.pub.arxiv or include.pub.code or include.pub.project or include.pub.bibtex %}
-    <p class="pub-links">
-      {% assign sep = '' %}
-      {% if include.pub.pdf     %}{{ sep }}<a href="{{ include.pub.pdf }}"     target="_blank" rel="noopener">PDF</a>{% assign sep = ' / ' %}{% endif %}
-      {% if include.pub.arxiv   %}{{ sep }}<a href="{{ include.pub.arxiv }}"   target="_blank" rel="noopener">arXiv</a>{% assign sep = ' / ' %}{% endif %}
-      {% if include.pub.code    %}{{ sep }}<a href="{{ include.pub.code }}"    target="_blank" rel="noopener">Code</a>{% assign sep = ' / ' %}{% endif %}
-      {% if include.pub.project %}{{ sep }}<a href="{{ include.pub.project }}" target="_blank" rel="noopener">Project</a>{% assign sep = ' / ' %}{% endif %}
-      {% if include.pub.bibtex  %}{{ sep }}<a href="{{ include.pub.bibtex }}"  target="_blank" rel="noopener">BibTeX</a>{% endif %}
-    </p>
-  {% endif %}
+  {% capture publication_links %}
+    {% assign link_keys = 'pdf,arxiv,code,project,bibtex' | split: ',' %}
+    {% for key in link_keys %}
+      {% assign value = include.pub[key] | strip %}
+      {% if value != "" %}
+        <a href="{{ value }}" target="_blank" rel="noopener">{% case key %}{% when 'pdf' %}PDF{% when 'arxiv' %}arXiv{% when 'code' %}Code{% when 'project' %}Project{% when 'bibtex' %}BibTeX{% endcase %}</a>
+      {% endif %}
+    {% endfor %}
+  {% endcapture %}
+  {% assign publication_links = publication_links | strip %}
+  {% if publication_links != "" %}<div class="pub-links">{{ publication_links }}</div>{% endif %}
 </li>
