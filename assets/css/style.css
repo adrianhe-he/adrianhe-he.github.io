@@ -162,9 +162,9 @@ article > section { margin-top: 2.75rem; scroll-margin-top: 1rem; }
 .role-line { display: block; }
 .hero-email { margin-top: .625rem; font: .875rem/1.6 var(--font-ui); }
 .hero-email a { color: var(--muted); }
-.link-row { display: flex; flex-wrap: wrap; align-items: baseline; gap: .25em .45em; margin-top: .875rem; font: 400 1.125rem/1.6 var(--font-serif); }
-.link-item { display: inline-flex; align-items: baseline; gap: .45em; min-width: 0; max-width: 100%; }
+.link-row { display: flex; flex-wrap: wrap; align-items: baseline; gap: .25em 1em; margin-top: .875rem; font: 400 1.125rem/1.6 var(--font-serif); }
 .link-row a {
+  position: relative;
   min-width: 0;
   max-width: 100%;
   overflow-wrap: anywhere;
@@ -174,6 +174,15 @@ article > section { margin-top: 2.75rem; scroll-margin-top: 1rem; }
   text-decoration-thickness: 1px;
   text-underline-offset: .16em;
   text-decoration-skip-ink: auto;
+}
+.link-row a + a::before {
+  content: '';
+  position: absolute;
+  left: -.55em;
+  top: .25em;
+  height: 1.05em;
+  border-left: 1px solid currentColor;
+  pointer-events: none;
 }
 .link-row a:hover, .link-row a:focus-visible { text-decoration-color: currentColor; }
 .link-row .sep { flex-shrink: 0; color: var(--fg); }
