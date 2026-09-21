@@ -1,104 +1,125 @@
-/* Academic homepage — theme toggle, TOC scrollspy, cursor pet */
+/* Theme, section navigation, and a small optional cursor companion. */
 (function () {
-  const STORAGE_THEME = 'site-theme';
+  'use strict';
+  const root = document.documentElement;
+  const themeButton = document.getElementById('theme-toggle');
+  const colorScheme = window.matchMedia('(prefers-color-scheme: dark)');
+  const motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)');
+  let savedTheme;
+  try { savedTheme = localStorage.getItem('site-theme'); } catch (_) {}
 
-  /* ---------- Theme toggle ---------- */
-  const themeBtn = document.getElementById('theme-toggle');
-  const setTheme = (theme) => {
-    document.body.classList.toggle('dark', theme === 'dark');
-    localStorage.setItem(STORAGE_THEME, theme);
-    if (themeBtn) {
-      const icon = themeBtn.querySelector('.theme-icon');
-      if (icon) icon.textContent = theme === 'dark' ? '◑' : '◐';
+  const setTheme = (theme, persist = false) => {
+    const dark = theme === 'dark';
+    root.classList.toggle('dark', dark);
+    if (persist) {
+      savedTheme = theme;
+      try { localStorage.setItem('site-theme', theme); } catch (_) {}
     }
+    if (!themeButton) return;
+    const label = dark ? 'Switch to light mode' : 'Switch to dark mode';
+    themeButton.setAttribute('aria-label', label);
+    themeButton.setAttribute('aria-pressed', String(dark));
+    themeButton.title = label;
+    const icon = themeButton.querySelector('.theme-icon');
+    if (icon) icon.textContent = dark ? '◑' : '◐';
   };
-  const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-  setTheme(localStorage.getItem(STORAGE_THEME) || (prefersDark ? 'dark' : 'light'));
-  if (themeBtn) {
-    themeBtn.addEventListener('click', () =>
-      setTheme(document.body.classList.contains('dark') ? 'light' : 'dark'));
+  setTheme(savedTheme === 'light' || savedTheme === 'dark' ? savedTheme : (colorScheme.matches ? 'dark' : 'light'));
+  if (themeButton) themeButton.addEventListener('click', () => setTheme(root.classList.contains('dark') ? 'light' : 'dark', true));
+  colorScheme.addEventListener('change', (event) => {
+    if (savedTheme !== 'dark' && savedTheme !== 'light') setTheme(event.matches ? 'dark' : 'light');
+  });
+
+  // Keep content readable even if scripting or the observer is unavailable.
+  if (!motionPreference.matches && 'IntersectionObserver' in window) {
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('reveal-enter');
+        revealObserver.unobserve(entry.target);
+      });
+    }, { threshold: 0, rootMargin: '0px 0px -24px 0px' });
+    document.querySelectorAll('.hero, article > section, .quote').forEach((element) => {
+      revealObserver.observe(element);
+      element.addEventListener('animationend', () => element.classList.remove('reveal-enter'), { once: true });
+    });
   }
 
-  /* ---------- Scroll-triggered fade-in ---------- */
-  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (!reduceMotion && 'IntersectionObserver' in window) {
-    document.body.classList.add('js-fade');
-    const fadeTargets = document.querySelectorAll('.hero, article > section, .quote');
-    const fadeObserver = new IntersectionObserver((entries) => {
-      // When multiple sections enter at once, stagger them by document order
-      const intersecting = entries
-        .filter(e => e.isIntersecting)
-        .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
-      intersecting.forEach((entry, i) => {
-        entry.target.style.transitionDelay = (i * 120) + 'ms';
-        entry.target.classList.add('is-visible');
-        fadeObserver.unobserve(entry.target);
-      });
-    }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
-    fadeTargets.forEach(el => fadeObserver.observe(el));
-  }
-
-  /* ---------- TOC scrollspy ---------- */
-  const tocLinks = Array.from(document.querySelectorAll('[data-toc]'));
-  if (tocLinks.length && 'IntersectionObserver' in window) {
-    const ids = tocLinks.map(a => a.getAttribute('data-toc'));
-    const sections = ids.map(id => document.getElementById(id)).filter(Boolean);
-
-    const setActive = (id) => {
-      tocLinks.forEach(a => a.classList.toggle('active', a.getAttribute('data-toc') === id));
-    };
-    const visible = new Map();
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach(e => {
-        if (e.isIntersecting) visible.set(e.target.id, e.intersectionRatio);
-        else visible.delete(e.target.id);
-      });
-      let best = null, bestRatio = -1;
-      visible.forEach((ratio, id) => {
-        if (ratio > bestRatio) { best = id; bestRatio = ratio; }
-      });
-      if (best) setActive(best);
-    }, { rootMargin: '-90px 0px -55% 0px', threshold: [0, 0.25, 0.5, 1] });
-    sections.forEach(s => io.observe(s));
-    if (sections[0]) setActive(sections[0].id);
-  }
-
-  /* ---------- Cursor-follower Pikachu ---------- */
-  const pet = document.querySelector('.cursor-pet');
-  if (pet && window.matchMedia('(hover: hover)').matches) {
-    const size = pet.offsetWidth || 56;
-    const offsetX = 22;   // pixels right of the cursor
-    const offsetY = 14;   // pixels below the cursor
-    const ease = 0.14;    // smoothing — lower = lazier follow
-
-    let targetX = -200, targetY = -200;
-    let x = targetX, y = targetY;
-    let active = false;
-
-    document.addEventListener('mousemove', (e) => {
-      targetX = e.clientX + offsetX;
-      targetY = e.clientY + offsetY;
-      if (!active) {
-        x = targetX; y = targetY;
-        active = true;
-        pet.classList.add('visible');
+  const toc = document.querySelector('.toc');
+  const tocList = document.querySelector('.toc-list');
+  const links = Array.from(document.querySelectorAll('[data-toc]'));
+  const sections = links.map((link) => document.getElementById(link.dataset.toc)).filter(Boolean);
+  let activeId;
+  let navigationFrame = 0;
+  const updateNavigation = () => {
+    navigationFrame = 0;
+    if (!sections.length) return;
+    const anchorPadding = parseFloat(getComputedStyle(root).scrollPaddingTop) || 0;
+    const sectionMargin = parseFloat(getComputedStyle(sections[0]).scrollMarginTop) || 0;
+    const threshold = Math.max((toc ? toc.getBoundingClientRect().height : 60) + 16, anchorPadding + sectionMargin + 2);
+    let active = sections[0];
+    sections.forEach((section) => { if (section.getBoundingClientRect().top <= threshold) active = section; });
+    if (window.scrollY + window.innerHeight >= root.scrollHeight - 4) active = sections[sections.length - 1];
+    if (active.id === activeId) return;
+    activeId = active.id;
+    links.forEach((link) => {
+      const current = link.dataset.toc === activeId;
+      link.classList.toggle('active', current);
+      if (current) link.setAttribute('aria-current', 'location');
+      else link.removeAttribute('aria-current');
+      if (current && tocList) {
+        const bounds = link.getBoundingClientRect();
+        const viewport = tocList.getBoundingClientRect();
+        if (bounds.left < viewport.left || bounds.right > viewport.right) {
+          tocList.scrollTo({ left: tocList.scrollLeft + bounds.left - viewport.left - 12, behavior: 'auto' });
+        }
       }
     });
-    document.addEventListener('mouseleave', () => {
-      pet.classList.remove('visible');
-    });
-    document.addEventListener('mouseenter', () => {
-      if (active) pet.classList.add('visible');
-    });
+  };
+  const queueNavigation = () => {
+    if (!navigationFrame) navigationFrame = requestAnimationFrame(updateNavigation);
+  };
+  window.addEventListener('scroll', queueNavigation, { passive: true });
+  window.addEventListener('resize', queueNavigation, { passive: true });
+  window.addEventListener('hashchange', queueNavigation);
+  window.addEventListener('load', queueNavigation);
+  updateNavigation();
 
-    const tick = () => {
-      x += (targetX - x) * ease;
-      y += (targetY - y) * ease;
-      const bob = Math.sin(performance.now() / 280) * 2;
-      pet.style.transform =
-        `translate3d(${(x - size / 2).toFixed(1)}px, ${(y - size / 2 + bob).toFixed(1)}px, 0)`;
-      requestAnimationFrame(tick);
-    };
-    requestAnimationFrame(tick);
-  }
+  const pet = document.querySelector('.cursor-pet');
+  if (!pet) return;
+  const pointerPreference = window.matchMedia('(hover: hover) and (pointer: fine)');
+  let frame = 0;
+  let visible = false;
+  let x = -200, y = -200, targetX = x, targetY = y;
+  const stopPet = () => {
+    visible = false;
+    pet.classList.remove('visible');
+    cancelAnimationFrame(frame);
+    frame = 0;
+  };
+  const movePet = () => {
+    frame = 0;
+    if (!visible) return;
+    x += (targetX - x) * .18;
+    y += (targetY - y) * .18;
+    pet.style.transform = `translate3d(${x.toFixed(1)}px, ${y.toFixed(1)}px, 0)`;
+    if (Math.abs(targetX - x) + Math.abs(targetY - y) > .2) frame = requestAnimationFrame(movePet);
+  };
+  document.addEventListener('pointermove', (event) => {
+    if (!pointerPreference.matches || motionPreference.matches || event.pointerType !== 'mouse') return;
+    targetX = Math.max(0, Math.min(event.clientX + 16, window.innerWidth - pet.offsetWidth - 8));
+    targetY = Math.max(0, Math.min(event.clientY + 16, window.innerHeight - pet.offsetHeight - 8));
+    if (!visible) {
+      x = targetX;
+      y = targetY;
+      visible = true;
+      pet.classList.add('visible');
+    }
+    if (!frame) frame = requestAnimationFrame(movePet);
+  }, { passive: true });
+  document.documentElement.addEventListener('pointerleave', stopPet);
+  window.addEventListener('blur', stopPet);
+  window.addEventListener('resize', stopPet, { passive: true });
+  document.addEventListener('visibilitychange', () => { if (document.hidden) stopPet(); });
+  pointerPreference.addEventListener('change', stopPet);
+  motionPreference.addEventListener('change', stopPet);
 })();
