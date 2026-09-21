@@ -30,7 +30,8 @@ cursor companion are included.
 
 Below 760px the inner margin is 24px; below 520px it is 20px. Navigation,
 main content, section rules, and footer use the same alignment. Body text is
-17px on desktop and 16px on phones, with a 1.75 line height. Browser text-size
+18px on desktop and 17px on phones, with a 1.8 line height. Body and supporting
+text use high-contrast ink colors, with a bold serif name. Browser text-size
 settings are respected through rem units. Dark theme tokens are under
 `:root.dark`. The footer date reflects the build date.
 
