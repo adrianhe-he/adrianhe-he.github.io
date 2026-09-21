@@ -1,0 +1,9 @@
+<li>
+  <div class="experience-heading">
+    <strong>{{ include.item.title }}</strong>
+    <span class="exp-date">{{ include.item.period }}</span>
+  </div>
+  <p class="exp-org">{{ include.item.org }}</p>
+  {% assign description = include.item.desc | strip %}
+  {% if description != "" %}<p class="exp-desc">{{ description }}</p>{% endif %}
+</li>

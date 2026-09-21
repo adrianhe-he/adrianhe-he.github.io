@@ -5,8 +5,8 @@
         <li><a href="#{{ item.id }}" data-toc="{{ item.id }}">{{ item.label }}</a></li>
       {% endfor %}
     </ul>
-    <button id="theme-toggle" class="mini-btn" aria-label="Toggle dark mode" title="Toggle theme">
-      <span class="theme-icon">◐</span>
+    <button id="theme-toggle" class="mini-btn" aria-label="Switch to dark mode" aria-pressed="false" title="Switch to dark mode">
+      <span class="theme-icon" aria-hidden="true">◐</span>
     </button>
   </div>
 </nav>
