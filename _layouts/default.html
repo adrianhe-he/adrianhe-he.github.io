@@ -5,19 +5,30 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>{{ site.title }}</title>
   <meta name="description" content="{{ site.description }}" />
+  <script>
+    // Apply the saved theme before paint; storage may be unavailable in private browsing.
+    (function () {
+      var theme;
+      try { theme = localStorage.getItem('site-theme'); } catch (_) {}
+      var dark = theme === 'dark' || (theme !== 'light' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+      document.documentElement.classList.toggle('dark', dark);
+    })();
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=JetBrains+Mono:wght@400;500&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}" />
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8C%8D%3C/text%3E%3C/svg%3E">
 </head>
 <body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
   {% include header.html %}
-  <main>{{ content }}</main>
+  <main id="main-content" tabindex="-1">{{ content }}</main>
   {% include footer.html %}
 
-  {% if site.cursor_pet %}
-    <img class="cursor-pet" src="{{ site.cursor_pet | relative_url }}" alt="" aria-hidden="true" />
+  {% assign cursor_pet = site.cursor_pet | strip %}
+  {% if cursor_pet != "" %}
+    <img class="cursor-pet" src="{{ cursor_pet | relative_url }}" width="42" height="52" alt="" aria-hidden="true" />
   {% endif %}
 
   <script src="{{ '/assets/js/main.js' | relative_url }}"></script>
