@@ -15,9 +15,12 @@ layout: default
         <img class="hero-mascot" src="{{ mascot | relative_url }}" width="46" height="56" alt="" aria-hidden="true" />
       {% endif %}
     </div>
-    <p class="role-lines">
+<p class="role-lines">
       <span class="role-line">{{ site.author.role }}</span>
       <span class="role-line">{{ site.author.affiliation }}</span>
+      {% if site.author.goal %}
+        <span class="role-line" style="color: red; font-weight: bold; margin-top: 4px;">{{ site.author.goal }}</span>
+      {% endif %}
     </p>
     <div class="link-row" aria-label="Contact and academic profiles">
       {% for link in site.links %}
