@@ -3,8 +3,9 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>{{ site.title }}</title>
-  <meta name="description" content="{{ site.description }}" />
+  <title>{% if page.nav != 'about' %}{{ page.title | escape }} · {% endif %}{{ site.title | escape }}</title>
+  <meta name="description" content="{{ site.description | escape }}" />
+  <link rel="canonical" href="{{ page.url | absolute_url }}" />
   <script>
     // Apply the saved theme before paint; storage may be unavailable in private browsing.
     (function () {
@@ -16,11 +17,11 @@
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}?v={{ site.time | date: '%s' }}" />
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8C%8D%3C/text%3E%3C/svg%3E">
 </head>
-<body>
+<body data-page="{{ page.nav }}" data-baseurl="{{ site.baseurl }}">
   <a class="skip-link" href="#main-content">Skip to content</a>
   {% include header.html %}
   <main id="main-content" tabindex="-1">{{ content }}</main>
@@ -31,6 +32,6 @@
     <img class="cursor-pet" src="{{ cursor_pet | relative_url }}" width="42" height="52" alt="" aria-hidden="true" />
   {% endif %}
 
-  <script src="{{ '/assets/js/main.js' | relative_url }}"></script>
+  <script src="{{ '/assets/js/main.js' | relative_url }}?v={{ site.time | date: '%s' }}"></script>
 </body>
 </html>
