@@ -1,12 +1,16 @@
-<nav class="toc" aria-label="Sections">
-  <div class="toc-inner">
-    <ul class="toc-list">
-      {% for item in site.toc %}
-        <li><a href="#{{ item.id }}" data-toc="{{ item.id }}">{{ item.label }}</a></li>
+<nav class="site-nav" aria-label="Main navigation">
+  <div class="nav-inner">
+    {% if page.nav != 'about' %}
+      <a class="nav-name" href="{{ '/' | relative_url }}">{{ site.author.name }}</a>
+    {% endif %}
+    <ul class="nav-list">
+      {% for item in site.nav %}
+        <li><a href="{{ item.url | relative_url }}"{% if page.nav == item.id %} class="active" aria-current="page"{% endif %}>{{ item.label }}</a></li>
       {% endfor %}
     </ul>
-    <button id="theme-toggle" class="mini-btn" aria-label="Switch to dark mode" aria-pressed="false" title="Switch to dark mode">
-      <span class="theme-icon" aria-hidden="true">◐</span>
+    <button id="theme-toggle" class="theme-toggle" aria-label="Switch to dark mode" aria-pressed="false" title="Switch to dark mode" type="button">
+      <svg class="theme-moon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="M20.4 13.1A8.5 8.5 0 0 1 10.9 3.6 8.5 8.5 0 1 0 20.4 13.1Z"/></svg>
+      <svg class="theme-sun" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5"/></svg>
     </button>
   </div>
 </nav>

@@ -24,18 +24,13 @@ links:
   arxiv:   ""
   cv:      ""
 
-# In-page TOC (anchor IDs into the single page)
-toc:
-  - { id: "about",        label: "About"        }
-  - { id: "research",     label: "Research"     }
-  - { id: "news",         label: "News"         }
-  - { id: "publications", label: "Publications" }
-  - { id: "experience",   label: "Experience"   }
-  - { id: "skills",       label: "Skills"       }
-  - { id: "honors",       label: "Honors"       }
-  - { id: "hobbies",      label: "Hobbies"      }
+# Main navigation — each URL opens a separate page.
+nav:
+  - { id: "about",        label: "about",        url: "/" }
+  - { id: "publications", label: "publications", url: "/publications/" }
+  - { id: "misc",         label: "misc.",        url: "/misc/" }
 
-# Personal quote shown above the footer
+# Personal quote shown on the Misc page
 quote:
   text:   "It rained for so many days, yet it did not wet me. The rainy season was within my heart — I had drenched myself."
   source: "Sanmao"
