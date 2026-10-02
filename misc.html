@@ -1,0 +1,37 @@
+---
+layout: default
+title: Misc
+nav: misc
+permalink: /misc/
+---
+
+<article class="container page-content misc-page">
+
+  <header class="page-heading">
+    <h1>misc.</h1>
+  </header>
+
+  <section id="hobbies">
+    <h2>Hobbies</h2>
+    <ul class="hobby-list">
+      {% for h in site.data.hobbies %}
+        <li>
+          <span class="h-title">{{ h.title }}</span><span class="h-desc">{{ h.desc }}</span>
+        </li>
+      {% endfor %}
+    </ul>
+  </section>
+
+  {% if site.quote.text %}
+  <aside class="quote">
+    <div class="quote-body">
+      <span class="quote-mark quote-mark-open" aria-hidden="true">&ldquo;</span>
+      <p class="quote-text">{{ site.quote.text }}</p>
+      <span class="quote-mark quote-mark-close" aria-hidden="true">&rdquo;</span>
+    </div>
+    {% if site.quote.source %}<span class="quote-source">{{ site.quote.source }}</span>{% endif %}
+    {% if site.quote.work %}<span class="quote-work">{{ site.quote.work }}</span>{% endif %}
+  </aside>
+  {% endif %}
+
+</article>

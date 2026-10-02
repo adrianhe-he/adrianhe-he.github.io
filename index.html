@@ -1,12 +1,12 @@
 ---
 layout: default
+title: About
+nav: about
+permalink: /
 ---
 
-<article class="container">
+<article class="container page-content about-page">
 
-  <!-- =========================================================
-       HERO — name, role, link row
-       ========================================================= -->
   <header class="hero">
     <div class="hero-heading">
       <h1>{{ site.author.name }}</h1>
@@ -15,11 +15,11 @@ layout: default
         <img class="hero-mascot" src="{{ mascot | relative_url }}" width="46" height="56" alt="" aria-hidden="true" />
       {% endif %}
     </div>
-<p class="role-lines">
+    <p class="role-lines">
       <span class="role-line">{{ site.author.role }}</span>
       <span class="role-line">{{ site.author.affiliation }}</span>
       {% if site.author.goal %}
-        <span class="role-line" style="color: red; font-weight: bold; margin-top: 4px;">{{ site.author.goal }}</span>
+        <span class="role-line profile-goal">{{ site.author.goal }}</span>
       {% endif %}
     </p>
     <div class="link-row" aria-label="Contact and academic profiles">
@@ -39,34 +39,11 @@ layout: default
     </div>
   </header>
 
-  <!-- =========================================================
-       ABOUT
-       ========================================================= -->
   <section id="about">
     <h2>About</h2>
-    <p>
-      Hi! I am <strong>Yuyang He</strong>, an undergraduate student in
-      <em>Materials Science and Engineering</em> at
-      <em>Huazhong University of Science and Technology (HUST)</em>.
-      I have a deep passion for <strong>physics</strong> and aspire to pursue
-      a <strong>Ph.D.</strong> in the field. My research interests lie in
-      <em>condensed matter physics</em> &mdash; particularly
-      <em>quantum computing</em>, <em>quantum information</em>, and
-      <em>topological structures</em>.
-    </p>
-    <p>
-      I approach life with energy and curiosity. I enjoy tracing ideas back to
-      first principles and exploring the history of science &mdash; there is a
-      quiet joy in understanding where ideas come from. I look forward to
-      challenging myself, learning continuously, and thinking independently.
-      Feel free to reach me at
-      <a href="mailto:{{ site.author.email }}">{{ site.author.email }}</a>.
-    </p>
+    {% include bio.html %}
   </section>
 
-  <!-- =========================================================
-       RESEARCH INTERESTS
-       ========================================================= -->
   <section id="research">
     <h2>Research Interests</h2>
     <ul class="interest-list">
@@ -79,45 +56,11 @@ layout: default
     </ul>
   </section>
 
-  <!-- =========================================================
-       NEWS  —  scrollable
-       ========================================================= -->
   <section id="news">
     <h2>News</h2>
-    <p class="empty-note">
-      Nothing to share yet &mdash; stay tuned.
-    </p>
+    {% include news.html %}
   </section>
 
-  <!-- =========================================================
-       PUBLICATIONS
-       ========================================================= -->
-  <section id="publications">
-    <h2>Publications</h2>
-    {% assign pubs = site.data.publications | sort: 'year' | reverse %}
-    {% if pubs.size > 0 %}
-      <p class="pub-note">
-        <sup>*</sup> equal contribution &middot; <strong>bold</strong> indicates the author.
-      </p>
-      {% assign years = pubs | map: 'year' | uniq %}
-      {% for year in years %}
-        <div class="year-block">
-          <p class="year-label">{{ year }}</p>
-          <ul class="pub-list">
-            {% for pub in pubs %}{% if pub.year == year %}{% include publication.html pub=pub %}{% endif %}{% endfor %}
-          </ul>
-        </div>
-      {% endfor %}
-    {% else %}
-      <p class="empty-note">
-        Forthcoming &mdash; stay tuned.
-      </p>
-    {% endif %}
-  </section>
-
-  <!-- =========================================================
-       EXPERIENCE
-       ========================================================= -->
   <section id="experience">
     <h2>Experience</h2>
 
@@ -136,9 +79,6 @@ layout: default
     </ul>
   </section>
 
-  <!-- =========================================================
-       TECHNICAL SKILLS
-       ========================================================= -->
   <section id="skills">
     <h2>Technical Skills</h2>
     <ul class="skill-list">
@@ -148,9 +88,6 @@ layout: default
     </ul>
   </section>
 
-  <!-- =========================================================
-       HONORS
-       ========================================================= -->
   <section id="honors">
     <h2>Honors &amp; Awards</h2>
     {% assign honors = site.data.honors | sort: 'date' | reverse %}
@@ -170,34 +107,5 @@ layout: default
       {% endfor %}
     </ul>
   </section>
-
-  <!-- =========================================================
-       HOBBIES
-       ========================================================= -->
-  <section id="hobbies">
-    <h2>Hobbies</h2>
-    <ul class="hobby-list">
-      {% for h in site.data.hobbies %}
-        <li>
-          <span class="h-title">{{ h.title }}</span><span class="h-desc">{{ h.desc }}</span>
-        </li>
-      {% endfor %}
-    </ul>
-  </section>
-
-  <!-- =========================================================
-       QUOTE  —  personal motto
-       ========================================================= -->
-  {% if site.quote.text %}
-  <aside class="quote">
-    <div class="quote-body">
-      <span class="quote-mark quote-mark-open" aria-hidden="true">&ldquo;</span>
-      <p class="quote-text">{{ site.quote.text }}</p>
-      <span class="quote-mark quote-mark-close" aria-hidden="true">&rdquo;</span>
-    </div>
-    {% if site.quote.source %}<span class="quote-source">{{ site.quote.source }}</span>{% endif %}
-    {% if site.quote.work %}<span class="quote-work">{{ site.quote.work }}</span>{% endif %}
-  </aside>
-  {% endif %}
 
 </article>
