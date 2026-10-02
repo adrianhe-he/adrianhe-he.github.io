@@ -1,0 +1,25 @@
+{% assign news_items = site.data.news | sort: 'date' | reverse %}
+{% if news_items.size > 0 %}
+  <ul class="timeline news-list">
+    {% for item in news_items %}
+      <li>
+        <div class="t-date">{{ item.date }}</div>
+        <div class="news-content">
+          {% assign news_title = item.title | default: '' | strip %}
+          {% assign news_text = item.text | default: '' | strip %}
+          {% assign news_url = item.url | default: '' | strip %}
+          {% if news_title != '' %}
+            <p class="t-title">{% if news_url != '' %}<a href="{{ news_url | relative_url }}">{{ news_title }}</a>{% else %}{{ news_title }}{% endif %}</p>
+          {% endif %}
+          {% if news_text != '' %}
+            <p class="t-desc">{% if news_url != '' and news_title == '' %}<a href="{{ news_url | relative_url }}">{{ news_text }}</a>{% else %}{{ news_text }}{% endif %}</p>
+          {% endif %}
+        </div>
+      </li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p class="empty-note">
+    Nothing to share yet &mdash; stay tuned.
+  </p>
+{% endif %}
