@@ -1,13 +1,13 @@
 # Yuyang He · 个人学术网站
 
-使用 Jekyll 与 GitHub Pages，网址为 <https://adrianhe-he.github.io/>。三页共用导航、深浅模式和响应式样式：正文使用 Lato 无衬线字体，名字及标题使用 Times New Roman 衬线字体，三毛引语使用字号较小的 Lora 衬线斜体。浅色模式为白底深色文字与酒红色强调色，深色模式使用蓝色强调文字。
+使用 Jekyll 与 GitHub Pages，网址为 <https://adrianhe-he.github.io/>。三页共用导航、深浅模式和响应式样式：正文与每条科研经历的标题使用 Lato 无衬线字体，名字、章节及论文标题使用 Times New Roman 衬线字体，三毛引语使用字号较小的 Lora 衬线斜体。浅色模式为白底深色文字与酒红色强调色，深色模式使用蓝色强调文字。
 
 ## 三个页面
 
 | 页面 | 源文件 | 网址与内容 |
 | --- | --- | --- |
 | About | `index.html` | `/`：简介与照片、研究兴趣、News、荣誉 |
-| Experience | `experience.html` | `/experience/`：教育、科研经历、论文与相关链接 |
+| Experience | `experience.html` | `/experience/`：科研经历、论文与相关链接 |
 | Misc | `misc.html` | `/misc/`：兴趣爱好与引语 |
 
 保留页面开头 `---` 内的 `layout`、`title`、`nav`、`permalink`。导航在 `_config.yml` 的 `nav` 中设置，包含 `id`、`label`、`url`；只改显示名称时修改 `label` 即可。旧首页的 `#experience`、`#publications`、`#hobbies` 等栏目链接由脚本兼容跳转。原 `/publications/` 网址会跳转到 `/experience/#publications`。
@@ -18,18 +18,18 @@
 
 | 内容 | 修改位置 |
 | --- | --- |
-| 姓名、身份、学校、邮箱、实习/合作意向 | `_config.yml` 的 `author`，意向字段为 `goal` |
+| 姓名、邮箱、实习/合作意向 | `_config.yml` 的 `author`，意向字段为 `goal`；`role`、`affiliation` 保留在配置中，但不再显示在意向上方 |
 | 联系与学术主页链接 | `_config.yml` 的 `links`；空字符串 `""` 隐藏链接 |
 | 右侧个人照片 | 上传至 `assets/img/`，然后设置 `_config.yml` 的 `author.photo` |
 | About 正文 | `_includes/bio.html` |
 | News | `_data/news.yml`：`date`、`text`，可选 `title`、`url` |
 | 研究兴趣 | `_data/interests.yml`：`title`、`desc` |
-| 教育/科研经历 | `_data/experience.yml` 的 `education` / `research`，显示在 Experience 页 |
+| 科研经历 | `_data/experience.yml` 的 `research`，显示在 Experience 页；`education` 数据保留但不显示 |
 | 论文 | `_data/publications.yml`，显示在 Experience 页的 Publications 栏目 |
 | 荣誉 | `_data/honors.yml`：`year`、`date`、`title`、`org`，可选 `tier`、`desc` |
 | 爱好 | `_data/hobbies.yml`：`title`、`desc` |
 | 引语 | `_config.yml` 的 `quote`；隐藏整块使用 `quote: null` |
-| 小皮卡丘 | `_config.yml` 的 `cursor_pet`；设为 `""` 隐藏名字旁与鼠标跟随图片 |
+| 鼠标跟随的小皮卡丘 | `_config.yml` 的 `cursor_pet`；设为 `""` 隐藏跟随图片。名字旁的静态图片已移除 |
 
 ### 容易遗漏的地方
 
@@ -45,7 +45,7 @@
 
 ## 样式参数
 
-简介左侧是正文，右侧保留 248 × 331px 的照片位。上传自己的照片后，在 `author:` 下把 `photo: ""` 改为 `photo: "/assets/img/portrait.jpg"`（保留两个空格缩进，文件名按实际填写）。手机上照片自动排在简介后面；未上传时不显示空白照片位。
+姓名、意向与联系链接横跨顶部两列；下方左侧简介正文与右侧照片顶部对齐。桌面照片位约 248 × 331px，列间距为 `2rem`；窗口宽度不超过 760px 时，照片列为 200px、列间距为 `1.75rem`。上传自己的照片后，在 `author:` 下把 `photo: ""` 改为 `photo: "/assets/img/portrait.jpg"`（保留两个空格缩进，文件名按实际填写）。窗口宽度不超过 520px 时，照片自动排在简介后面。未上传照片时，桌面保留照片位，手机隐藏空位。
 
 顶部链接按配置顺序显示。`cv: "#"` 是待替换的 CV 占位链接；上传 PDF 后改为 `/assets/cv.pdf`。`wechat`、`x`、`scholar` 目前是各服务入口，分别替换成微信二维码图片、X 个人主页、Google Scholar 个人主页地址。News 目前有一条标注 `(example)` 的示例，可改写或删除。研究兴趣以普通段落显示，News 与荣誉以项目符号列表显示。Skills 已从页面移除。Experience 页每条经历按标题、单位与时间、说明排列；同一条记录可加 `status`、`pdf`、`poster`、`code`、`project`、`image`、`image_alt`，填写后才显示状态、按钮和配图。留空或不填写就不显示，不必修改 HTML。 每条经历与未来添加的每篇论文都使用独立的圆角卡片：细边框、轻微阴影和适当内边距；夜间模式自动调整卡片背景与边框。
 
@@ -59,7 +59,7 @@
 --accent: #97181e; /* 浅色模式酒红色强调色 */
 ```
 
-手机宽度不超过 520px 时每侧边距为 18px。桌面正文 18px，手机正文 17px，行高均为 1.7。名字字号 `2.625rem`（默认约 42px），手机 `2.125rem`（约 34px），字重 700。章节标题约 26px，手机约 24px。名字与标题由 `--font-heading: 'Times New Roman', Times, serif` 设置，正文由 `--font-body` 设置。标题、日期等有单独的样式；修改正文不一定同步改变它们。
+手机宽度不超过 520px 时每侧边距为 18px。桌面正文 18px，手机正文 17px，默认行高为 1.7；首页简介正文单独设为 1.65，段落间距为 `.9rem`。名字字号 `2.625rem`（默认约 42px），手机 `2.125rem`（约 34px），字重 700。章节标题约 26px，手机约 24px。名字、章节与论文标题由 `--font-heading: 'Times New Roman', Times, serif` 设置，正文与经历标题由 `--font-body` 设置。`.experience-title` 使用 Lato，字号 `1.375rem`（约 22px）、字重 700。标题、日期等有单独的样式；修改正文不一定同步改变它们。
 
 浅色变量在 `:root`，深色变量在 `:root.dark`。深色模式的强调色为 `--accent: #69b8f7`，强调背景为 `--accent-soft: #1d3042`。深浅模式选择保存在当前浏览器，跨页面沿用；没有手动选择时参考系统主题。CSS 与 JavaScript URL 带构建时间参数，发布成功后如仍看到旧内容，可强制刷新。页脚更新时间自动使用构建月份。
 
