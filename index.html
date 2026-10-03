@@ -5,61 +5,75 @@ nav: about
 permalink: /
 ---
 
-<article class="container page-content about-page">. 
-   <div class="profile-intro". 
-      <header class="hero">
-         <div class="hero-heading".    
-             <h1>{{ site.author.name }}</.   iv>h1>
-         </div>div>.         {% if site.author.goal %}
-           <p class="profile-goal">{{ site.author.goal }}</. >p>
-        {% endif %.   
-      <div class="link-row" aria-label="Contact and academic profiles">
-              {% for link in site.links %}.                {% assign link_value = link[1] | strip %}
-                {% if link_value != "" %}
-                  {% case link[0] %}.                    {% when 'email' %}<a href="mailto:{{ link_value }}">{{ link_value }}</.  >a>
-                  {% when 'scholar' %}<a href="{{ link_value }}" target="_blank" rel="noopener">Google Scholar. /a>a>
-                               {% when 'github' %}<a href="{{ link_value }}" target="_blank" rel="noopener">GitHub</a>a.   
-                             {% when 'wechat' %}<a href="{{ link_value | relative_url }}" target="_blank" rel="noopener">WeChat<. a>a>
-                               {% when 'x' %}<a href="{{ link_value }}" target="_blank" rel="noopener">X</a>a.   
-                                        {% when 'website' %}<a href="{{ link_value }}" target="_blank" rel="noopener">Website</a>a>.                                           {% when 'arxiv' %}<a href="{{ link_value }}" target="_blank" rel="noopener">arXiv</a>a.    
-                                       {% when 'cv' %}{% if link_value == '#' %}<a href="#" title="CV link to be added">CV</a>a>{% else %}<a href="{{ link_value | relative_url }}" target="_blank" rel="noopener">CV</a>a>{% endif %}
-                                         {% endcase. %}
-                                      {% endif. %}
-                                    {% endfor %}
-                             </div>
-  .                              </heade. >
+<article class="container page-content about-page">
 
-                                <section id="about".   
-                                   <h2>About</section>h.  >
-                                 {% include bio.html. %}
-                             </section>
-                                 {% assign portrait = site.author.photo | default: '' | strip %}
-                                 <aside class="profile-portrait"{% if portrait == '' %} aria-hidden="true"{% endif %. >
-                                      {% if portrait != '' %}.                                         <img class="profile-photo" src="{{ portrait | relative_url }}" width="248" height="331" alt="Portrait of {{ site.author.name | escape }}". />
-                                         {% else %.    
-                                     <div class="portrait-placeholder"></div>di.  >
-                                     {% endif %}.                                     </aside>aside>.                                 </di. >
+  <div class="profile-intro">
+  <header class="hero">
+    <div class="hero-heading">
+      <h1>{{ site.author.name }}</h1>
+    </div>
+    {% if site.author.goal %}
+      <p class="profile-goal">{{ site.author.goal }}</p>
+    {% endif %}
+    <div class="link-row" aria-label="Contact and academic profiles">
+      {% for link in site.links %}
+        {% assign link_value = link[1] | strip %}
+        {% if link_value != "" %}
+          {% case link[0] %}
+            {% when 'email' %}<a href="mailto:{{ link_value }}">{{ link_value }}</a>
+            {% when 'scholar' %}<a href="{{ link_value }}" target="_blank" rel="noopener">Google Scholar</a>
+            {% when 'github' %}<a href="{{ link_value }}" target="_blank" rel="noopener">GitHub</a>
+            {% when 'wechat' %}<a href="{{ link_value | relative_url }}" target="_blank" rel="noopener">WeChat</a>
+            {% when 'x' %}<a href="{{ link_value }}" target="_blank" rel="noopener">X</a>
+            {% when 'website' %}<a href="{{ link_value }}" target="_blank" rel="noopener">Website</a>
+            {% when 'arxiv' %}<a href="{{ link_value }}" target="_blank" rel="noopener">arXiv</a>
+            {% when 'cv' %}{% if link_value == '#' %}<a href="#" title="CV link to be added">CV</a>{% else %}<a href="{{ link_value | relative_url }}" target="_blank" rel="noopener">CV</a>{% endif %}
+          {% endcase %}
+        {% endif %}
+      {% endfor %}
+    </div>
+  </header>
 
-                                <section id="research.  >
-                                    <h2>Research Interests</h2>
-                                      <div class="research-prose">
-                                        {% for item in site.data.interests. %}
-                                         <p><strong>{{ item.title }}</strong>{% assign d = item.desc | strip %}{% if d != "" %} &mdash; {{ d }}{% endif %}</p>.                                      {% endfor %.   
-                                </section>div>.                               </section. 
-                             
-                              <section id="news">.                                  <h2>News</h2>.                                  {% include news.html %. 
-                              </section>sectio. >
-                             
-                              <section id="honors".   
-                               <h2>Honors &amp; Awards<. section>h2>
-                                {% assign honors = site.data.honors | sort: 'date' | reverse %}
-                                   <ul class="bullet-list honors-list">
-                                         {% for h in honors %}.                                           <li>.                                                     <strong class="bullet-date">{{ h.date | default: h.year }}:</stron.   >
-                                                  <strong>{{ h.title }}</strong>{% if h.tier %} <span class="t-tier">{{ h.tier }}</span>span>{% endif %}
-                                                     &mdash; <span class="honor-org">{{ h.org }}</span>span>{% if h.desc %}. <span class="honor-desc">{{ h.desc }}</span>span>{% endif %}.                                                   </.     i>
-                                      {% endfor %}
-                                   </ul>.                                   </section>
+  <section id="about">
+    <h2>About</h2>
+    {% include bio.html %}
+  </section>
+  {% assign portrait = site.author.photo | default: '' | strip %}
+  <aside class="profile-portrait"{% if portrait == '' %} aria-hidden="true"{% endif %}>
+    {% if portrait != '' %}
+      <img class="profile-photo" src="{{ portrait | relative_url }}" width="248" height="331" alt="Portrait of {{ site.author.name | escape }}" />
+    {% else %}
+      <div class="portrait-placeholder"></div>
+    {% endif %}
+  </aside>
+  </div>
 
-                             </article>
-                               
-                                         </li></h2></strong></p>
+  <section id="research">
+    <h2>Research Interests</h2>
+    <div class="research-prose">
+      {% for item in site.data.interests %}
+        <p><strong>{{ item.title }}</strong>{% assign d = item.desc | strip %}{% if d != "" %} &mdash; {{ d }}{% endif %}</p>
+      {% endfor %}
+    </div>
+  </section>
+
+  <section id="news">
+    <h2>News</h2>
+    {% include news.html %}
+  </section>
+
+  <section id="honors">
+    <h2>Honors &amp; Awards</h2>
+    {% assign honors = site.data.honors | sort: 'date' | reverse %}
+    <ul class="bullet-list honors-list">
+      {% for h in honors %}
+        <li>
+          <strong class="bullet-date">{{ h.date | default: h.year }}:</strong>
+          <strong>{{ h.title }}</strong>{% if h.tier %} <span class="t-tier">{{ h.tier }}</span>{% endif %}
+          &mdash; <span class="honor-org">{{ h.org }}</span>{% if h.desc %}. <span class="honor-desc">{{ h.desc }}</span>{% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+  </section>
+
+</article>
