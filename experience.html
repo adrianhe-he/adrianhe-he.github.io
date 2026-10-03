@@ -1,0 +1,53 @@
+---
+layout: default
+title: Experience
+nav: experience
+permalink: /experience/
+---
+
+<article class="container page-content experience-page">
+
+  <header class="page-heading">
+    <h1>experience</h1>
+  </header>
+
+  <section id="experience">
+    <h2 class="subsection-label">Education</h2>
+    <ul class="experience-list">
+      {% for item in site.data.experience.education %}
+        {% include experience.html item=item %}
+      {% endfor %}
+    </ul>
+
+    <h2 class="subsection-label">Research</h2>
+    <ul class="experience-list">
+      {% for item in site.data.experience.research %}
+        {% include experience.html item=item %}
+      {% endfor %}
+    </ul>
+  </section>
+
+  <section id="publications">
+    <h2>Publications</h2>
+    {% assign pubs = site.data.publications | sort: 'year' | reverse %}
+    {% if pubs.size > 0 %}
+      <p class="pub-note">
+        <sup>*</sup> equal contribution &middot; <strong>bold</strong> indicates the author.
+      </p>
+      {% assign years = pubs | map: 'year' | uniq %}
+      {% for year in years %}
+        <div class="year-block">
+          <p class="year-label">{{ year }}</p>
+          <ul class="pub-list">
+            {% for pub in pubs %}{% if pub.year == year %}{% include publication.html pub=pub %}{% endif %}{% endfor %}
+          </ul>
+        </div>
+      {% endfor %}
+    {% else %}
+      <p class="empty-note">
+        Forthcoming &mdash; stay tuned.
+      </p>
+    {% endif %}
+  </section>
+
+</article>

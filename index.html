@@ -7,6 +7,8 @@ permalink: /
 
 <article class="container page-content about-page">
 
+  <div class="profile-intro">
+  <div class="intro-copy">
   <header class="hero">
     <div class="hero-heading">
       <h1>{{ site.author.name }}</h1>
@@ -30,9 +32,11 @@ permalink: /
             {% when 'email' %}<a href="mailto:{{ link_value }}">{{ link_value }}</a>
             {% when 'scholar' %}<a href="{{ link_value }}" target="_blank" rel="noopener">Google Scholar</a>
             {% when 'github' %}<a href="{{ link_value }}" target="_blank" rel="noopener">GitHub</a>
+            {% when 'wechat' %}<a href="{{ link_value | relative_url }}" target="_blank" rel="noopener">WeChat</a>
+            {% when 'x' %}<a href="{{ link_value }}" target="_blank" rel="noopener">X</a>
             {% when 'website' %}<a href="{{ link_value }}" target="_blank" rel="noopener">Website</a>
             {% when 'arxiv' %}<a href="{{ link_value }}" target="_blank" rel="noopener">arXiv</a>
-            {% when 'cv' %}<a href="{{ link_value | relative_url }}" target="_blank" rel="noopener">CV (PDF)</a>
+            {% when 'cv' %}{% if link_value == '#' %}<a href="#" title="CV link to be added">CV</a>{% else %}<a href="{{ link_value | relative_url }}" target="_blank" rel="noopener">CV</a>{% endif %}
           {% endcase %}
         {% endif %}
       {% endfor %}
@@ -43,17 +47,24 @@ permalink: /
     <h2>About</h2>
     {% include bio.html %}
   </section>
+  </div>
+  {% assign portrait = site.author.photo | default: '' | strip %}
+  <aside class="profile-portrait"{% if portrait == '' %} aria-hidden="true"{% endif %}>
+    {% if portrait != '' %}
+      <img class="profile-photo" src="{{ portrait | relative_url }}" width="248" height="331" alt="Portrait of {{ site.author.name | escape }}" />
+    {% else %}
+      <div class="portrait-placeholder"></div>
+    {% endif %}
+  </aside>
+  </div>
 
   <section id="research">
     <h2>Research Interests</h2>
-    <ul class="interest-list">
+    <div class="research-prose">
       {% for item in site.data.interests %}
-        <li>
-          <h3>{{ item.title }}</h3>
-          {% assign d = item.desc | strip %}{% if d != "" %}<p>{{ d }}</p>{% endif %}
-        </li>
+        <p><strong>{{ item.title }}</strong>{% assign d = item.desc | strip %}{% if d != "" %} &mdash; {{ d }}{% endif %}</p>
       {% endfor %}
-    </ul>
+    </div>
   </section>
 
   <section id="news">
@@ -61,48 +72,15 @@ permalink: /
     {% include news.html %}
   </section>
 
-  <section id="experience">
-    <h2>Experience</h2>
-
-    <h3 class="subsection-label">Education</h3>
-    <ul class="experience-list">
-      {% for item in site.data.experience.education %}
-        {% include experience.html item=item %}
-      {% endfor %}
-    </ul>
-
-    <h3 class="subsection-label">Research</h3>
-    <ul class="experience-list">
-      {% for item in site.data.experience.research %}
-        {% include experience.html item=item %}
-      {% endfor %}
-    </ul>
-  </section>
-
-  <section id="skills">
-    <h2>Technical Skills</h2>
-    <ul class="skill-list">
-      {% for s in site.data.skills %}
-        <li><strong>{{ s.category }}</strong><span>{{ s.items }}</span></li>
-      {% endfor %}
-    </ul>
-  </section>
-
   <section id="honors">
     <h2>Honors &amp; Awards</h2>
     {% assign honors = site.data.honors | sort: 'date' | reverse %}
-    <ul class="timeline">
+    <ul class="bullet-list honors-list">
       {% for h in honors %}
         <li>
-          <div class="t-date">{{ h.date | default: h.year }}</div>
-          <div>
-            <p class="t-title">
-              {{ h.title }}
-              {% if h.tier %}<span class="t-tier">{{ h.tier }}</span>{% endif %}
-            </p>
-            <p class="t-org">{{ h.org }}</p>
-            {% if h.desc %}<p class="t-desc">{{ h.desc }}</p>{% endif %}
-          </div>
+          <strong class="bullet-date">{{ h.date | default: h.year }}:</strong>
+          <strong>{{ h.title }}</strong>{% if h.tier %} <span class="t-tier">{{ h.tier }}</span>{% endif %}
+          &mdash; <span class="honor-org">{{ h.org }}</span>{% if h.desc %}. <span class="honor-desc">{{ h.desc }}</span>{% endif %}
         </li>
       {% endfor %}
     </ul>

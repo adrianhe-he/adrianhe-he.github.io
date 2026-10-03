@@ -1,5 +1,8 @@
 <li class="pub">
-  <p class="pub-title">{{ include.pub.title }}</p>
+  <div class="experience-heading">
+    <h3 class="pub-title">{{ include.pub.title }}</h3>
+    {% if include.pub.badge %}<span class="entry-badge">{{ include.pub.badge }}</span>{% endif %}
+  </div>
   <p class="pub-meta">
     {% assign authors = include.pub.authors | split: ';' %}
     {% for a in authors %}
@@ -7,17 +10,21 @@
       {% if name contains '**' %}<span class="me">{{ name | remove: '**' }}</span>{% else %}{{ name }}{% endif %}{% unless forloop.last %}, {% endunless %}
     {% endfor %}
     <br/>
-    <em>{{ include.pub.venue }}</em>, {{ include.pub.year }}{% if include.pub.badge %} <span class="pub-tag">{{ include.pub.badge }}</span>{% endif %}
+    <em>{{ include.pub.venue }}, {{ include.pub.year }}</em>
   </p>
+  {% assign description = include.pub.desc | default: '' | strip %}
+  {% if description != '' %}<p class="experience-description">{{ description }}</p>{% endif %}
   {% capture publication_links %}
-    {% assign link_keys = 'pdf,arxiv,code,project,bibtex' | split: ',' %}
+    {% assign link_keys = 'pdf,poster,arxiv,code,project,bibtex' | split: ',' %}
     {% for key in link_keys %}
       {% assign value = include.pub[key] | strip %}
       {% if value != "" %}
-        <a href="{{ value }}" target="_blank" rel="noopener">{% case key %}{% when 'pdf' %}PDF{% when 'arxiv' %}arXiv{% when 'code' %}Code{% when 'project' %}Project{% when 'bibtex' %}BibTeX{% endcase %}</a>
+        <a href="{{ value | relative_url }}" target="_blank" rel="noopener">{% case key %}{% when 'pdf' %}Paper{% when 'poster' %}Poster{% when 'arxiv' %}arXiv{% when 'code' %}Code{% when 'project' %}Project{% when 'bibtex' %}BibTeX{% endcase %}</a>
       {% endif %}
     {% endfor %}
   {% endcapture %}
   {% assign publication_links = publication_links | strip %}
-  {% if publication_links != "" %}<div class="pub-links">{{ publication_links }}</div>{% endif %}
+  {% if publication_links != "" %}<div class="entry-links">{{ publication_links }}</div>{% endif %}
+  {% assign image = include.pub.image | default: '' | strip %}
+  {% if image != '' %}<img class="experience-image" src="{{ image | relative_url }}" alt="{{ include.pub.image_alt | default: include.pub.title | escape }}" loading="lazy" />{% endif %}
 </li>
