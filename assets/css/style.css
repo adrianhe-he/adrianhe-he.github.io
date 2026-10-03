@@ -217,5 +217,7 @@ main { width: 100%; flex: 1; padding-bottom: 4rem; }
   h2, h3 { break-after:avoid; }
   .pub, .experience-list li, .hobby-list li, .timeline li { break-inside:avoid; }
   .experience-page .experience-list > .experience-entry,
-  .experience-page .pub-list > .pub { background: #fff; box-shadow: none; }
+  .experience-page .pub-list > .pub,
+  :root.dark .experience-page .experience-list > .experience-entry,
+  :root.dark .experience-page .pub-list > .pub { background: #fff; box-shadow: none; }
 }
