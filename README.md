@@ -34,7 +34,7 @@
 ### 容易遗漏的地方
 
 - YAML 保留缩进，用空格，不用 Tab。新增一条复制完整列表项，不覆盖既有真实资料。
-- News 和论文当前空列表以 `[]` 表示。首次添加必须用条目替换 `[]`，不能接在其后。
+- News 当前有一条标注 `(example)` 的示例。论文当前为空列表 `[]`；首次添加论文要用条目替换 `[]`，不能接在其后。
 - News 日期使用统一的带引号格式，例如 `"2026-10-02"`，按日期倒序。`text` 是正文，`title` 是可选标题；有 `url` 时链接标题，没有标题则链接正文。`title` 与 `text` 至少填写一项。
 - 论文按 `year` 倒序分组，年份统一写数字；作者用英文分号 `;` 分隔，以 `**Yuyang He**` 加粗本人名字。`pdf`、`poster`、`arxiv`、`code`、`project`、`bibtex` 只填写真实链接，空值不显示。论文可加 `desc`、`image`、`image_alt` 和 `badge`。
 - 经历的分类名只写一次；分类内 `- period:` 前两个空格，其余 `title`、`org`、`desc` 前四个空格。`service` 中是未显示的旧模板示例，不代表本人真实经历。
@@ -47,7 +47,9 @@
 
 简介左侧是正文，右侧保留 248 × 331px 的照片位。上传自己的照片后，在 `author:` 下把 `photo: ""` 改为 `photo: "/assets/img/portrait.jpg"`（保留两个空格缩进，文件名按实际填写）。手机上照片自动排在简介后面；未上传时不显示空白照片位。
 
-顶部链接按配置顺序显示。`cv: "#"` 是待替换的 CV 占位链接；上传 PDF 后改为 `/assets/cv.pdf`。`wechat`、`x`、`scholar` 目前是各服务入口，分别替换成微信二维码图片、X 个人主页、Google Scholar 个人主页地址。News 目前有一条标注 `(example)` 的示例，可改写或删除。研究兴趣以普通段落显示，News 与荣誉以项目符号列表显示。Skills 已从页面移除。Experience 页每条经历按标题、单位与时间、说明排列；同一条记录可加 `status`、`pdf`、`poster`、`code`、`project`、`image`、`image_alt`，填写后才显示状态、按钮和配图。留空或不填写就不显示，不必修改 HTML。
+顶部链接按配置顺序显示。`cv: "#"` 是待替换的 CV 占位链接；上传 PDF 后改为 `/assets/cv.pdf`。`wechat`、`x`、`scholar` 目前是各服务入口，分别替换成微信二维码图片、X 个人主页、Google Scholar 个人主页地址。News 目前有一条标注 `(example)` 的示例，可改写或删除。研究兴趣以普通段落显示，News 与荣誉以项目符号列表显示。Skills 已从页面移除。Experience 页每条经历按标题、单位与时间、说明排列；同一条记录可加 `status`、`pdf`、`poster`、`code`、`project`、`image`、`image_alt`，填写后才显示状态、按钮和配图。留空或不填写就不显示，不必修改 HTML。 每条经历与未来添加的每篇论文都使用独立的圆角卡片：细边框、轻微阴影和适当内边距；夜间模式自动调整卡片背景与边框。
+
+卡片样式在 `assets/css/style.css` 中搜索 `Each experience or paper`。`padding` 控制卡片内边距，`margin-bottom` 控制卡片间距，`border-radius` 控制圆角，`box-shadow` 控制阴影。相关选择器以 `.experience-page` 开头，仅作用于 Experience 页。宽度不超过 520px 的手机规则另设 `padding: 1.15rem`、`border-radius: 11px`；调整时同时检查深色模式与手机规则。
 
 所有样式在 `assets/css/style.css`：
 
