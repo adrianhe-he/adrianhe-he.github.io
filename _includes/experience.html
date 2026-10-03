@@ -1,9 +1,22 @@
-<li>
+{% assign item = include.item %}
+<li class="experience-entry">
   <div class="experience-heading">
-    <strong>{{ include.item.title }}</strong>
-    <span class="exp-date">{{ include.item.period }}</span>
+    <h3 class="experience-title">{{ item.title }}</h3>
+    {% assign status = item.status | default: '' | strip %}
+    {% if status != '' %}<span class="entry-badge">{{ status }}</span>{% endif %}
   </div>
-  <p class="exp-org">{{ include.item.org }}</p>
-  {% assign description = include.item.desc | strip %}
-  {% if description != "" %}<p class="exp-desc">{{ description }}</p>{% endif %}
+  <p class="experience-meta"><em>{{ item.org }} &middot; {{ item.period }}</em></p>
+  {% assign description = item.desc | default: '' | strip %}
+  {% if description != '' %}<p class="experience-description">{{ description }}</p>{% endif %}
+  {% capture resource_links %}
+    {% assign link_keys = 'pdf,poster,code,project' | split: ',' %}
+    {% for key in link_keys %}
+      {% assign value = item[key] | default: '' | strip %}
+      {% if value != '' %}<a href="{{ value | relative_url }}" target="_blank" rel="noopener">{% case key %}{% when 'pdf' %}Report{% when 'poster' %}Poster{% when 'code' %}Code{% when 'project' %}Project{% endcase %}</a>{% endif %}
+    {% endfor %}
+  {% endcapture %}
+  {% assign resource_links = resource_links | strip %}
+  {% if resource_links != '' %}<div class="entry-links">{{ resource_links }}</div>{% endif %}
+  {% assign image = item.image | default: '' | strip %}
+  {% if image != '' %}<img class="experience-image" src="{{ image | relative_url }}" alt="{{ item.image_alt | default: item.title | escape }}" loading="lazy" />{% endif %}
 </li>
