@@ -18,13 +18,11 @@ author:
 
 # Header link row (leave any field empty to hide)
 links:
-  email:   "yuyanghe738@gmail.com"
   github:  "https://github.com/adrianhe-he"
-  cv:      "#" # Replace with your PDF URL, e.g. "/assets/cv.pdf".
+  cv:      "/assets/CV(2026.9).pdf" # Replace with your PDF URL, e.g. "/assets/cv.pdf".
   wechat:  "https://www.wechat.com/" # Replace with your WeChat QR-code image URL.
   x:       "https://x.com/" # Replace with your profile URL.
   scholar: "https://scholar.google.com/" # Replace with your Google Scholar profile URL.
-  website: ""
   arxiv:   ""
 
 # Main navigation — each URL opens a separate page.
