@@ -13,21 +13,24 @@ author:
   email:       "yuyanghe738@gmail.com"
   role:        "Undergraduate Student, Materials Science and Engineering"
   affiliation: "Huazhong University of Science and Technology (HUST)"
+  photo:       "" # Upload your portrait, then set e.g. "/assets/img/portrait.jpg".
   goal:        "<span style='color: red;'><strong>I am actively looking for 27 Spring Research Intern Opportunities in Physics</strong></span>"
 
 # Header link row (leave any field empty to hide)
 links:
   email:   "yuyanghe738@gmail.com"
-  scholar: ""
   github:  "https://github.com/adrianhe-he"
+  cv:      "#" # Replace with your PDF URL, e.g. "/assets/cv.pdf".
+  wechat:  "https://www.wechat.com/" # Replace with your WeChat QR-code image URL.
+  x:       "https://x.com/" # Replace with your profile URL.
+  scholar: "https://scholar.google.com/" # Replace with your Google Scholar profile URL.
   website: ""
   arxiv:   ""
-  cv:      ""
 
 # Main navigation — each URL opens a separate page.
 nav:
   - { id: "about",        label: "about",        url: "/" }
-  - { id: "publications", label: "publications", url: "/publications/" }
+  - { id: "experience",   label: "experience",   url: "/experience/" }
   - { id: "misc",         label: "misc.",        url: "/misc/" }
 
 # Personal quote shown on the Misc page

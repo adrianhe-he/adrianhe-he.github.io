@@ -1,33 +1,16 @@
 ---
-layout: default
-title: Publications
-nav: publications
 permalink: /publications/
 ---
-
-<article class="container page-content publications-page">
-
-  <section id="publications">
-    <h1 class="page-title">publications</h1>
-    {% assign pubs = site.data.publications | sort: 'year' | reverse %}
-    {% if pubs.size > 0 %}
-      <p class="pub-note">
-        <sup>*</sup> equal contribution &middot; <strong>bold</strong> indicates the author.
-      </p>
-      {% assign years = pubs | map: 'year' | uniq %}
-      {% for year in years %}
-        <div class="year-block">
-          <p class="year-label">{{ year }}</p>
-          <ul class="pub-list">
-            {% for pub in pubs %}{% if pub.year == year %}{% include publication.html pub=pub %}{% endif %}{% endfor %}
-          </ul>
-        </div>
-      {% endfor %}
-    {% else %}
-      <p class="empty-note">
-        Forthcoming &mdash; stay tuned.
-      </p>
-    {% endif %}
-  </section>
-
-</article>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Publications · {{ site.title | escape }}</title>
+  <link rel="canonical" href="{{ '/experience/' | absolute_url }}#publications">
+</head>
+<body>
+  <p><a id="destination" href="{{ '/experience/' | relative_url }}#publications">View Experience &amp; Publications</a></p>
+  <script>window.location.replace(document.getElementById('destination').href);</script>
+</body>
+</html>
