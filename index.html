@@ -8,22 +8,13 @@ permalink: /
 <article class="container page-content about-page">
 
   <div class="profile-intro">
-  <div class="intro-copy">
   <header class="hero">
     <div class="hero-heading">
       <h1>{{ site.author.name }}</h1>
-      {% assign mascot = site.cursor_pet | strip %}
-      {% if mascot != "" %}
-        <img class="hero-mascot" src="{{ mascot | relative_url }}" width="46" height="56" alt="" aria-hidden="true" />
-      {% endif %}
     </div>
-    <p class="role-lines">
-      <span class="role-line">{{ site.author.role }}</span>
-      <span class="role-line">{{ site.author.affiliation }}</span>
-      {% if site.author.goal %}
-        <span class="role-line profile-goal">{{ site.author.goal }}</span>
-      {% endif %}
-    </p>
+    {% if site.author.goal %}
+      <p class="profile-goal">{{ site.author.goal }}</p>
+    {% endif %}
     <div class="link-row" aria-label="Contact and academic profiles">
       {% for link in site.links %}
         {% assign link_value = link[1] | strip %}
@@ -47,7 +38,6 @@ permalink: /
     <h2>About</h2>
     {% include bio.html %}
   </section>
-  </div>
   {% assign portrait = site.author.photo | default: '' | strip %}
   <aside class="profile-portrait"{% if portrait == '' %} aria-hidden="true"{% endif %}>
     {% if portrait != '' %}
