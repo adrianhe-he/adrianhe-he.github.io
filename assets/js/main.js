@@ -30,8 +30,8 @@
   // Links shared before the redesign still reach their original content.
   const base = document.body.dataset.baseurl || '';
   const legacyPages = {
-    '#about': '/', '#research': '/', '#news': '/', '#experience': '/',
-    '#skills': '/', '#honors': '/', '#publications': '/publications/',
+    '#about': '/', '#research': '/', '#news': '/', '#experience': '/experience/',
+    '#skills': '/', '#honors': '/', '#publications': '/experience/',
     '#hobbies': '/misc/'
   };
   const followLegacyLink = () => {
