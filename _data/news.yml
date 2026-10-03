@@ -1,2 +1,5 @@
 # Add news items here. Dates should be quoted, for example: "2026-10".
-[]
+- date: "2026-10-02"
+  title: "Website update (example)"
+  text: "My homepage now includes separate About, Experience, and Misc pages."
+  url: ""
