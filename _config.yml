@@ -19,7 +19,7 @@ author:
 # Header link row (leave any field empty to hide)
 links:
   cv:      "/assets/CV(2026.9).pdf" # Replace with your PDF URL, e.g. "/assets/cv.pdf".
-  wechat:  "/assets/IMG_7055.jpg" # Replace with your WeChat QR-code image URL.
+  wechat:  "/img/IMG_7055.jpg" # Replace with your WeChat QR-code image URL.
   x:       “”
   scholar: “”
   arxiv:   “”
