@@ -3,11 +3,4 @@
 #  Each entry: title + one short sentence.
 # =====================================================================
 
-- title: "Condensed Matter Physics"
-  desc:  "Emergent phenomena and collective behaviour in many-body quantum systems."
-
-- title: "Non-Hermitian system"
-  desc:  "Quantum algorithms, error correction, and physical realisations on solid-state platforms."
-
-- title: "Topological Phases of Matter"
-  desc:  "Topological invariants, edge states, and symmetry-protected phases."
+- title: "Condensed Matter Physics, Non-Hermitian system, Topological Phases of Matter, Quantum Information
