@@ -20,6 +20,17 @@ permalink: /experience/
     </ul>
   </section>
 
+  {% if site.data.experience.projects.size > 0 %}
+  <section id="projects">
+    <h2 class="subsection-label">Projects</h2>
+    <ul class="experience-list">
+      {% for item in site.data.experience.projects %}
+        {% include experience.html item=item %}
+      {% endfor %}
+    </ul>
+  </section>
+  {% endif %}
+
   <section id="publications">
     <h2>Publications</h2>
     {% assign pubs = site.data.publications | sort: 'year' | reverse %}
