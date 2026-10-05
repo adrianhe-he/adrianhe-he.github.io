@@ -7,7 +7,7 @@
 | 页面 | 源文件 | 网址与内容 |
 | --- | --- | --- |
 | About | `index.html` | `/`：简介与照片、研究兴趣、News、荣誉 |
-| Experience | `experience.html` | `/experience/`：科研经历、论文与相关链接 |
+| Experience | `experience.html` | `/experience/`：科研经历、项目经历、论文与相关链接 |
 | Misc | `misc.html` | `/misc/`：兴趣爱好与引语 |
 
 保留页面开头 `---` 内的 `layout`、`title`、`nav`、`permalink`。导航在 `_config.yml` 的 `nav` 中设置，包含 `id`、`label`、`url`；只改显示名称时修改 `label` 即可。旧首页的 `#experience`、`#publications`、`#hobbies` 等栏目链接由脚本兼容跳转。原 `/publications/` 网址会跳转到 `/experience/#publications`。
@@ -26,6 +26,7 @@
 | News | `_data/news.yml`：`date`、`text`，可选 `title`、`url` |
 | 研究兴趣 | `_data/interests.yml`：`title`、`desc` |
 | 科研经历 | `_data/experience.yml` 的 `research`，显示在 Experience 页；`education` 数据保留但不显示 |
+| 项目经历 | `_data/experience.yml` 的 `projects`，使用与科研经历相同的卡片样式 |
 | 论文 | `_data/publications.yml`，显示在 Experience 页的 Publications 栏目 |
 | 荣誉 | `_data/honors.yml`：`year`、`date`、`title`、`org`，可选 `tier`、`desc` |
 | 爱好 | `_data/hobbies.yml`：`title`、`desc` |
@@ -33,6 +34,8 @@
 | 鼠标跟随的小皮卡丘 | `_config.yml` 的 `cursor_pet`；设为 `""` 隐藏跟随图片。名字旁的静态图片已移除 |
 
 ### 容易遗漏的地方
+
+科研与项目经历的每条记录可填写 `role`（角色）、`advisor`（导师）和 `highlights`（工作要点）。`highlights` 是列表，每条包含 `label`（加粗的小标题）和 `text`（具体说明）；不填写就不显示。原有 `desc` 段落仍然支持。新增经历时复制同一分类下的一条完整记录，修改后保留缩进。`status` 可显示简短状态或奖项，但只填写已经确认的信息。
 
 - YAML 保留缩进，用空格，不用 Tab。新增一条复制完整列表项，不覆盖既有真实资料。
 - News 当前有一条标注 `(example)` 的示例。论文当前为空列表 `[]`；首次添加论文要用条目替换 `[]`，不能接在其后。

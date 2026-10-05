@@ -1,5 +1,5 @@
 # =====================================================================
-#  Experience  —  three buckets: education, research, service
+#  Experience — research and projects are displayed; education/service are retained but hidden.
 # =====================================================================
 
 education:
@@ -9,15 +9,45 @@ education:
     desc:   ""
 
 research:
-  - period: "Dec 2025 — Aug 2026"
-    title:  "Undergraduate Research Training (URP)"
-    org:    "HUST · Materials Science and Engineering"
-    desc:   "Topic: Low-Frequency Noise Measurement of Thermistors. Supervised by Prof. Shaobo Qu."
+  - period: "July 2026 — Present"
+    title: "Studies of Non-Hermitian Systems"
+    org: "Huazhong University of Science and Technology (HUST)"
+    role: "Research Assistant"
+    advisor: "Xiaoxiao Zhang"
+    highlights:
+      - label: "Literature review"
+        text: "Studied key reviews and representative papers in non-Hermitian physics to build an understanding of its theoretical frameworks and analytical methods."
+      - label: "Numerical replication"
+        text: "Reproduced numerical results and corresponding figures from the literature using Python, developing experience in numerical computation, algorithm implementation, and result analysis."
+      - label: "Research communication"
+        text: "Prepared reading notes synthesizing English-language literature on non-Hermitian physics and shared them on social media."
+
+  - period: "Dec 2025 — Jun 2026"
+    title: "Low-Frequency Noise in Thermistors"
+    org: "Huazhong University of Science and Technology (HUST)"
+    role: "Research Assistant"
+    advisor: "Shaobo Qu"
+    highlights:
+      - label: "Research focus"
+        text: "Worked on thermistor temperature calibration, lattice vibrations, and parameter estimation for low-frequency noise models, with a focus on noise mechanisms."
+      - label: "Literature and data analysis"
+        text: "Synthesized and presented relevant literature, and used deep learning for preliminary parameter analysis of thermistor experimental data."
 
   - period: "May 2025 — Apr 2026"
     title:  "Undergraduate Innovation Training Program"
     org:    "HUST · Materials Science and Engineering"
     desc:   "Supervised by Prof. Yuan Li."
+
+
+projects:
+  - period: "June 2025 — June 2026"
+    title: "Wafer-Scale Synthesis of Two-Dimensional Semiconductors"
+    org: "Huazhong University of Science and Technology (HUST)"
+    role: "Core Member"
+    status: "Silver Prize"
+    highlights:
+      - label: "Experimental work"
+        text: "Participated in thin-film growth of two-dimensional semiconductors and SEM/XRD characterization, gaining hands-on experience in materials fabrication and optoelectronic performance analysis."
 
 service:
   - period: "2024 — Present"

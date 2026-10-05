@@ -6,8 +6,20 @@
     {% if status != '' %}<span class="entry-badge">{{ status }}</span>{% endif %}
   </div>
   <p class="experience-meta"><em>{{ item.org }} &middot; {{ item.period }}</em></p>
+  {% assign role = item.role | default: '' | strip %}
+  {% assign advisor = item.advisor | default: '' | strip %}
+  {% if role != '' or advisor != '' %}
+    <p class="experience-description">{% if role != '' %}<strong>{{ role }}</strong>{% endif %}{% if role != '' and advisor != '' %} &middot; {% endif %}{% if advisor != '' %}Advisor: {{ advisor }}{% endif %}</p>
+  {% endif %}
   {% assign description = item.desc | default: '' | strip %}
   {% if description != '' %}<p class="experience-description">{{ description }}</p>{% endif %}
+  {% if item.highlights.size > 0 %}
+    <ul class="bullet-list experience-description">
+      {% for highlight in item.highlights %}
+        <li>{% if highlight.label %}<strong>{{ highlight.label }}:</strong> {% endif %}{{ highlight.text }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
   {% capture resource_links %}
     {% assign link_keys = 'pdf,poster,code,project' | split: ',' %}
     {% for key in link_keys %}
