@@ -14,16 +14,15 @@ author:
   role:        "Undergraduate Student, Materials Science and Engineering"
   affiliation: "Huazhong University of Science and Technology (HUST)"
   photo:       "" # Upload your portrait, then set e.g. "/assets/img/portrait.jpg".
-  goal:        "<span style='color: red;'><strong>I am actively looking for 27 Spring Research Intern Opportunities in Physics</strong></span>"
+  goal:        "<span style='color: red;'><strong>I am actively looking for 27 Spring Research Intern Opportunities in Physics and 28Fall PhD Positions!</strong></span>"
 
 # Header link row (leave any field empty to hide)
 links:
-  github:  "https://github.com/adrianhe-he"
   cv:      "/assets/CV(2026.9).pdf" # Replace with your PDF URL, e.g. "/assets/cv.pdf".
   wechat:  "https://www.wechat.com/" # Replace with your WeChat QR-code image URL.
-  x:       "https://x.com/" # Replace with your profile URL.
-  scholar: "https://scholar.google.com/" # Replace with your Google Scholar profile URL.
-  arxiv:   ""
+  x:       
+  scholar: 
+  arxiv:   
 
 # Main navigation — each URL opens a separate page.
 nav:
