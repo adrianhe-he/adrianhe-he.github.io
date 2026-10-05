@@ -20,6 +20,7 @@
 | --- | --- |
 | 姓名、邮箱、实习/合作意向 | `_config.yml` 的 `author`，意向字段为 `goal`；`role`、`affiliation` 保留在配置中，但不再显示在意向上方 |
 | 联系与学术主页链接 | `_config.yml` 的 `links`；空字符串 `""` 隐藏链接 |
+| 微信二维码 | 图片为 `assets/img/IMG_7055.JPG`，`links.wechat` 填 `/assets/img/IMG_7055.JPG`；点击 WeChat 在新标签页打开图片 |
 | 右侧个人照片 | 上传至 `assets/img/`，然后设置 `_config.yml` 的 `author.photo` |
 | About 正文 | `_includes/bio.html` |
 | News | `_data/news.yml`：`date`、`text`，可选 `title`、`url` |
@@ -47,11 +48,13 @@
 
 姓名、意向与联系链接横跨顶部两列；下方左侧简介正文与右侧照片顶部对齐。桌面照片位约 248 × 331px，列间距为 `2rem`；窗口宽度不超过 760px 时，照片列为 200px、列间距为 `1.75rem`。上传自己的照片后，在 `author:` 下把 `photo: ""` 改为 `photo: "/assets/img/portrait.jpg"`（保留两个空格缩进，文件名按实际填写）。窗口宽度不超过 520px 时，照片自动排在简介后面。未上传照片时，桌面保留照片位，手机隐藏空位。
 
-顶部链接按配置顺序显示。`cv: "#"` 是待替换的 CV 占位链接；上传 PDF 后改为 `/assets/cv.pdf`。`wechat`、`x`、`scholar` 目前是各服务入口，分别替换成微信二维码图片、X 个人主页、Google Scholar 个人主页地址。News 目前有一条标注 `(example)` 的示例，可改写或删除。研究兴趣以普通段落显示，News 与荣誉以项目符号列表显示。Skills 已从页面移除。Experience 页每条经历按标题、单位与时间、说明排列；同一条记录可加 `status`、`pdf`、`poster`、`code`、`project`、`image`、`image_alt`，填写后才显示状态、按钮和配图。留空或不填写就不显示，不必修改 HTML。 每条经历与未来添加的每篇论文都使用独立的圆角卡片：细边框、轻微阴影和适当内边距；夜间模式自动调整卡片背景与边框。
+顶部链接按配置顺序显示。CV 使用 `links.cv` 中的 PDF 地址。WeChat 已指向 `/assets/img/IMG_7055.JPG`，替换二维码时可上传同名图片；如果改了文件名，同时修改 `links.wechat`。文件名大小写必须完全一致，`.JPG` 和 `.jpg` 不通用。X、Google Scholar 等主页地址分别填写在 `links.x`、`links.scholar` 中。News 目前有一条标注 `(example)` 的示例，可改写或删除。研究兴趣以普通段落显示，News 与荣誉以项目符号列表显示。Skills 已从页面移除。Experience 页每条经历按标题、单位与时间、说明排列；同一条记录可加 `status`、`pdf`、`poster`、`code`、`project`、`image`、`image_alt`，填写后才显示状态、按钮和配图。留空或不填写就不显示，不必修改 HTML。 每条经历与未来添加的每篇论文都使用独立的圆角卡片：细边框、轻微阴影和适当内边距；夜间模式自动调整卡片背景与边框。
 
 卡片样式在 `assets/css/style.css` 中搜索 `Each experience or paper`。`padding` 控制卡片内边距，`margin-bottom` 控制卡片间距，`border-radius` 控制圆角，`box-shadow` 控制阴影。相关选择器以 `.experience-page` 开头，仅作用于 Experience 页。宽度不超过 520px 的手机规则另设 `padding: 1.15rem`、`border-radius: 11px`；调整时同时检查深色模式与手机规则。
 
 所有样式在 `assets/css/style.css`：
+
+样式文件已清除旧 Skills、时间线和独立 Publications 页面未使用的规则；当前页面、手机、深色模式和打印样式保留。暂未展示的经历数据、技能数据以及论文的可选字段保留，避免丢失以后可能需要的资料。
 
 ```css
 --measure: 1040px; /* 整块内容最大宽度，含两侧内部边距 */
