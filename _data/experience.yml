@@ -33,12 +33,6 @@ research:
       - label: "Literature and data analysis"
         text: "Synthesized and presented relevant literature, and used deep learning for preliminary parameter analysis of thermistor experimental data."
 
-  - period: "May 2025 — Apr 2026"
-    title:  "Undergraduate Innovation Training Program"
-    org:    "HUST · Materials Science and Engineering"
-    desc:   "Supervised by Prof. Yuan Li."
-
-
 projects:
   - period: "June 2025 — June 2026"
     title: "Wafer-Scale Synthesis of Two-Dimensional Semiconductors"
