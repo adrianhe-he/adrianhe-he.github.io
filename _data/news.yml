@@ -1,9 +1,4 @@
 # Add news items here. Dates should be quoted, for example: "2026-10".
-- date: "2026-10-02"
-  title: "Website update (example)"
-  text: "My homepage now includes separate About, Experience, and Misc pages."
-  url: ""
-
 - date: "2026-09"
   title: "Scholarships at HUST"
   text: "I am honored to have received the Self-Improvement Scholarship of HUST and the Excellent Voluntary and Public Service Scholarship of HUST!"
